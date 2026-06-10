@@ -5,10 +5,15 @@ import { useEffect, useRef, useState } from 'react';
 
 export default function ProfileCard() {
   const [shareOpen, setShareOpen] = useState(false);
+  const [locationOpen, setLocationOpen] = useState(false);
   const shareMenuRef = useRef<HTMLDivElement>(null);
+  const locationMenuRef = useRef<HTMLDivElement>(null);
   const contactShareText =
     'Hello, my name is Almahy Mohammed Abdelghany from AlMahy Legal Services. Email: info@almahy.com. Phone: +971 56 766 7466. Visit https://www.almahy.com';
   const profileUrl = 'https://www.almahy.com';
+  const mapUrl = 'https://maps.app.goo.gl/8TfKebrAiachLvBC9';
+  const officeAddress =
+    'Al Saqr Business Tower - 2nd Floor - Sheikh Zayed Rd - Trade Center Second - DIFC - Dubai';
   const encodedContactShare = encodeURIComponent(contactShareText);
   const encodedProfileUrl = encodeURIComponent(profileUrl);
 
@@ -56,28 +61,36 @@ export default function ProfileCard() {
     link.click();
     link.remove();
     setShareOpen(false);
+    setLocationOpen(false);
   };
 
   useEffect(() => {
-    if (!shareOpen) {
+    if (!shareOpen && !locationOpen) {
       return;
     }
 
     const closeOnOutsideClick = (event: PointerEvent) => {
-      if (
-        shareMenuRef.current &&
-        !shareMenuRef.current.contains(event.target as Node)
-      ) {
+      const target = event.target as Node;
+      const clickedOutsideShare =
+        !shareMenuRef.current || !shareMenuRef.current.contains(target);
+      const clickedOutsideLocation =
+        !locationMenuRef.current || !locationMenuRef.current.contains(target);
+
+      if (clickedOutsideShare) {
         setShareOpen(false);
+      }
+
+      if (clickedOutsideLocation) {
+        setLocationOpen(false);
       }
     };
 
     document.addEventListener('pointerdown', closeOnOutsideClick);
     return () => document.removeEventListener('pointerdown', closeOnOutsideClick);
-  }, [shareOpen]);
+  }, [shareOpen, locationOpen]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-4 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-2 sm:p-4 flex items-center justify-center">
       {/* Animated background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-amber-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
@@ -231,15 +244,41 @@ export default function ProfileCard() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </a>
-              <div
-                aria-label="Office location"
-                title="Al-Saqr Business Tower, Sharjah, zayed Road"
-                className="group flex items-center justify-center w-full h-14 bg-slate-700 bg-opacity-40 rounded-xl border border-slate-600 hover:bg-opacity-60 transition"
-              >
-                <svg className="w-6 h-6 text-purple-300 transition group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
+              <div ref={locationMenuRef} className="relative">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setLocationOpen((open) => !open);
+                    setShareOpen(false);
+                  }}
+                  aria-label="Office location"
+                  title={officeAddress}
+                  className="group flex h-14 w-full items-center justify-center rounded-xl border border-slate-600 bg-slate-700 bg-opacity-40 transition hover:bg-opacity-60"
+                >
+                  <svg className="w-6 h-6 text-purple-300 transition group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </button>
+
+                {locationOpen ? (
+                  <div className="absolute right-0 top-16 z-50 w-72 rounded-3xl border border-slate-600 bg-slate-900/98 p-4 shadow-2xl backdrop-blur-xl">
+                    <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Location</p>
+                    <p className="text-sm leading-relaxed text-slate-200">{officeAddress}</p>
+                    <a
+                      href={mapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 flex items-center justify-center gap-2 rounded-2xl bg-purple-500/20 px-4 py-3 text-sm font-bold text-purple-200 transition hover:bg-purple-500/30"
+                    >
+                      Navigate
+                      <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 19V5" />
+                        <path d="m5 12 7-7 7 7" />
+                      </svg>
+                    </a>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
@@ -321,8 +360,8 @@ export default function ProfileCard() {
               <div className="flex items-center justify-between gap-3 rounded-2xl border border-slate-600 bg-slate-900/80 px-4 py-3 shadow-lg shadow-slate-950/20">
                 <h3 className="min-w-0 flex-1 text-sm font-black leading-tight text-white">Almahy   Legal Service Brochure</h3>
                 <a
-                  href="/images/media/Almahy  _Legal_Profile_V16.pdf"
-                  download="Almahy  _Legal_Service_Brochure.pdf"
+                  href="/images/media/Almahy_Legal_Profile_V16.pdf"
+                  download="Almahy_Legal_Service_Brochure.pdf"
                   className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-amber-400 px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-slate-950 transition hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-300/60"
                   aria-label="Download Almahy   Legal Service Brochure"
                 >
