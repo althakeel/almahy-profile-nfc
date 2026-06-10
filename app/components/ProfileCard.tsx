@@ -1,10 +1,11 @@
 ﻿"use client";
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function ProfileCard() {
   const [shareOpen, setShareOpen] = useState(false);
+  const shareMenuRef = useRef<HTMLDivElement>(null);
   const contactShareText =
     'Hello, my name is Almahy Mohammed Abdelghany from AlMahy Legal Services. Email: info@almahy.com. Phone: +971 56 766 7466. Visit https://www.almahy.com';
   const profileUrl = 'https://www.almahy.com';
@@ -57,6 +58,24 @@ export default function ProfileCard() {
     setShareOpen(false);
   };
 
+  useEffect(() => {
+    if (!shareOpen) {
+      return;
+    }
+
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (
+        shareMenuRef.current &&
+        !shareMenuRef.current.contains(event.target as Node)
+      ) {
+        setShareOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', closeOnOutsideClick);
+    return () => document.removeEventListener('pointerdown', closeOnOutsideClick);
+  }, [shareOpen]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-4 flex items-center justify-center">
       {/* Animated background elements */}
@@ -106,7 +125,7 @@ export default function ProfileCard() {
 
             </div>
 
-            <div className="relative">
+            <div ref={shareMenuRef} className="relative">
               <button
                 type="button"
                 onClick={() => {
