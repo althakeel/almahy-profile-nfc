@@ -92,11 +92,10 @@ export default function ProfileCard() {
             <Image
               src="/images/bg/almahy_01.png"
               alt=""
-              width={726}
-              height={402}
+              fill
               priority
               sizes="448px"
-              className="absolute left-0 top-[46%] w-full max-w-none -translate-y-1/2 scale-[1.08]"
+              className="object-cover object-center scale-[1.08]"
               style={{ filter: "blur(2px)" }}
             />
           </div>
@@ -202,7 +201,7 @@ export default function ProfileCard() {
           {/* About Section */}
           <div className="mt-6 bg-slate-700 bg-opacity-50 p-4 rounded-xl border border-slate-600">
             <h2 className="font-black text-white mb-2 text-xs uppercase tracking-widest">About me</h2>
-            <p className="text-sm text-slate-200 leading-relaxed">
+            <p className="text-justify text-sm text-slate-200 leading-relaxed">
               AlMahy Legal Services is a leading UAE-based law firm with over 15 years of experience and a global network of 5,000+ qualified lawyers.
               We provide trusted legal solutions for individuals and businesses, combining local expertise with international legal knowledge.
               Our commitment to excellence ensures professional guidance and reliable support for all your legal needs.
@@ -275,38 +274,38 @@ export default function ProfileCard() {
           {/* Social Media */}
           <div className="mt-8">
             <h2 className="font-black text-white text-xs uppercase tracking-widest mb-4">My Social Network</h2>
-            <div className="flex gap-3 justify-center flex-wrap">
-              <a href="https://api.whatsapp.com/send?phone=971567667466" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="group relative flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-300/60">
+            <div className="grid grid-cols-6 gap-2 sm:gap-3">
+              <a href="https://api.whatsapp.com/send?phone=971567667466" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="group relative flex aspect-square w-full max-w-11 justify-self-center items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-300/60">
                 <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition rounded-full"></div>
                 <svg className="relative h-5 w-5 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 448 512" aria-hidden="true">
                   <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32 101.5 32 1.9 131.6 1.9 254c0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1C346.2 476 448 376.4 448 254c0-59.3-25.2-115-67.1-156.9zM223.9 438.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
                 </svg>
               </a>
-              <a href="https://www.instagram.com/almahyforlegalservices/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="group relative flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-pink-300/60">
+              <a href="https://www.instagram.com/almahyforlegalservices/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="group relative flex aspect-square w-full max-w-11 justify-self-center items-center justify-center rounded-full bg-gradient-to-br from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-pink-300/60">
                 <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition rounded-full"></div>
                 <svg className="relative h-5 w-5 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 448 512" aria-hidden="true">
                   <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1S3.3 127.6 1.5 163.5c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.9zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
                 </svg>
               </a>
-              <a href="https://www.facebook.com/Almahy  Legal" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="group relative flex h-11 w-11 items-center justify-center rounded-full bg-[#1877F2] text-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-300/60">
+              <a href="https://www.facebook.com/Almahy  Legal" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="group relative flex aspect-square w-full max-w-11 justify-self-center items-center justify-center rounded-full bg-[#1877F2] text-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-300/60">
                 <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition rounded-full"></div>
                 <svg className="relative h-5 w-5 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 320 512" aria-hidden="true">
                   <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06H297V6.26S260.43 0 225.36 0C152.14 0 104.23 44.38 104.23 124.72v70.62H22.89V288h81.34v224h100.22V288z" />
                 </svg>
               </a>
-              <a href="https://www.tiktok.com/@almahyforlegalservices" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="group relative flex h-11 w-11 items-center justify-center rounded-full bg-black text-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-slate-200/40">
+              <a href="https://www.tiktok.com/@almahyforlegalservices" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="group relative flex aspect-square w-full max-w-11 justify-self-center items-center justify-center rounded-full bg-black text-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-slate-200/40">
                 <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition rounded-full"></div>
                 <svg className="relative h-5 w-5 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 448 512" aria-hidden="true">
                   <path d="M448 209.9v125.1c-21.3 0-42.4-4.2-62.1-12.4v88.4c0 77.3-62.7 140-140 140s-140-62.7-140-140 62.7-140 140-140c7 0 13.9.5 20.6 1.5v68.9c-6.6-2.1-13.5-3.1-20.6-3.1-40.1 0-72.7 32.6-72.7 72.7s32.6 72.7 72.7 72.7 72.7-32.6 72.7-72.7V0h67.3c0 57.8 46.9 104.7 104.7 104.7v67.3c-24.4 0-47.5-5.5-68.1-15.4 15.4 31.8 48 53.3 85.5 53.3z" />
                 </svg>
               </a>
-              <a href="https://www.youtube.com/watch?v=fkJy3OfT0V8&time_continue=4&source_ve_path=MjE0Mjgz&embeds_referring_euri=https%3A%2F%2Fwww.ecdc.me%2F" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="group relative flex h-11 w-11 items-center justify-center rounded-full bg-[#FF0000] text-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-red-300/60">
+              <a href="https://www.youtube.com/watch?v=fkJy3OfT0V8&time_continue=4&source_ve_path=MjE0Mjgz&embeds_referring_euri=https%3A%2F%2Fwww.ecdc.me%2F" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="group relative flex aspect-square w-full max-w-11 justify-self-center items-center justify-center rounded-full bg-[#FF0000] text-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-red-300/60">
                 <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition rounded-full"></div>
                 <svg className="relative h-5 w-5 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 576 512" aria-hidden="true">
                   <path d="M549.7 124.1c-6.3-23.7-24.9-42.3-48.6-48.6C458.3 64 288 64 288 64S117.7 64 74.9 75.5c-23.7 6.3-42.3 24.9-48.6 48.6C14.8 166.9 14.8 256 14.8 256s0 89.1 11.5 131.9c6.3 23.7 24.9 42.3 48.6 48.6C117.7 448 288 448 288 448s170.3 0 213.1-11.5c23.7-6.3 42.3-24.9 48.6-48.6 11.5-42.8 11.5-131.9 11.5-131.9s0-89.1-11.5-131.9zM232 337.6V174.4L376 256 232 337.6z" />
                 </svg>
               </a>
-              <a href="https://www.linkedin.com/company/almahy-legal-services/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="group relative flex h-11 w-11 items-center justify-center rounded-full bg-[#0A66C2] text-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-300/60">
+              <a href="https://www.linkedin.com/company/almahy-legal-services/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="group relative flex aspect-square w-full max-w-11 justify-self-center items-center justify-center rounded-full bg-[#0A66C2] text-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-300/60">
                 <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition rounded-full"></div>
                 <svg className="relative h-5 w-5 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 448 512" aria-hidden="true">
                   <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8 0 24.1 24.1 0 53.79 0s53.79 24.1 53.79 53.8c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z" />
