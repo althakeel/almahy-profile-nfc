@@ -4,11 +4,24 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import ContactSelectionModal, { type ContactOption } from './ContactSelectionModal';
 
+const websites = [
+  { href: "https://www.almahy.com", src: "/images/4.png", alt: "Almahy Logo" },
+  { href: "https://efateh.com/", src: "/images/1.png", alt: "Al Fateh Logo" },
+  { href: "https://www.casabait.com", src: "/images/6.png", alt: "Casa Bait Logo" },
+  { href: "https://www.althakeel.com", src: "/images/2.png", alt: "Althakeel Logo" },
+  { href: "https://armed.ae/", src: "/images/armed.svg", alt: "Armed Logo" },
+  { href: "https://www.store1920.com/", src: "/images/store1920.svg", alt: "Store1920 Logo" },
+  { href: "https://nexso.ae/", src: "/images/nexso.svg", alt: "Nexso Logo" },
+];
+
 const contacts: ContactOption[] = [
-  { id: 'almahy', name: 'Almahy', file: '/Almathy.vcf', enabled: true },
-  { id: 'contact-2', name: 'Contact Person 2', file: null, enabled: false },
-  { id: 'contact-3', name: 'Contact Person 3', file: null, enabled: false },
-  { id: 'contact-4', name: 'Contact Person 4', file: null, enabled: false },
+  { id: 'almahy', name: 'Almahy', file: '/Almathy.vcf', enabled: true, photo: '/images/almahy/Almahy1.png' },
+  { id: 'amin-kamel', name: 'Amin Kamel', file: '/contacts/Amin-Kamel.vcf', enabled: true, photo: '/images/contacts/amin-kamel.jpg' },
+  { id: 'dalia-khaled', name: 'Dalia Khaled', file: '/contacts/Dalia-Khaled.vcf', enabled: true },
+  { id: 'maged-nafea', name: 'Maged Nafea', file: '/contacts/Maged-Nafea.vcf', enabled: true, photo: '/images/contacts/maged-nafea.jpg' },
+  { id: 'camile-cunanan', name: 'Camile Cunanan', file: '/contacts/Camile-Cunanan.vcf', enabled: true },
+  { id: 'ahmed-osama', name: 'Ahmed Osama', file: '/contacts/Ahmed-Osama.vcf', enabled: true, photo: '/images/contacts/ahmed-osama.jpg' },
+  { id: 'nassef', name: 'Nassef', file: '/contacts/Nassef.vcf', enabled: true, photo: '/images/contacts/nassef.png' },
 ];
 
 export default function ProfileCard() {
@@ -309,29 +322,33 @@ export default function ProfileCard() {
           {/* Website Logos */}
           <div className="mt-6">
             <h2 className="font-black text-white text-xs uppercase tracking-widest mb-4">Our Websites</h2>
-            <div className="grid grid-cols-3 gap-3">
-              {[
-                { href: "https://efateh.com/", src: "/images/1.png", alt: "Casa Online Logo" },
-                { href: "https://www.althakeel.com", src: "/images/2.png", alt: "MediateSuit Logo" },
-                { href: "https://www.almahy.com", src: "/images/4.png", alt: "Alfhaidsol Logo" },
-                { href: "https://www.luxurywatchdeals.com", src: "/images/5.png", alt: "Luxury Writoth Device Logo" },
-                { href: "https://www.casabait.com", src: "/images/6.png", alt: "Almahy  Logo" },
-                { href: "https://armed.ae/", src: "/images/armed.svg", alt: "Armed Logo" },
-                { href: "https://www.store1920.com/", src: "/images/store1920.svg", alt: "Store1920 Logo" },
-                { href: "https://nexso.ae/", src: "/images/nexso.svg", alt: "Nexso Logo" },
-              ].map((site) => (
+            <div className="grid grid-cols-6 gap-3">
+              {websites.map((site, index) => {
+                const remainder = websites.length % 3;
+                const orphanStart = websites.length - remainder;
+                const placement =
+                  remainder === 1 && index === orphanStart
+                    ? "col-start-3"
+                    : remainder === 2 && index === orphanStart
+                      ? "col-start-2"
+                      : remainder === 2 && index === orphanStart + 1
+                        ? "col-start-4"
+                        : "";
+
+                return (
                 <a
                   key={site.src}
                   href={site.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group bg-slate-700 bg-opacity-40 p-3 rounded-2xl border border-slate-600 hover:bg-opacity-60 transition flex items-center justify-center h-20"
+                  className={`group col-span-2 flex h-24 items-center justify-center rounded-2xl border border-slate-600 bg-slate-700/40 p-1.5 transition hover:bg-slate-700/60 ${placement}`}
                 >
-                  <div className="relative w-full h-full flex items-center justify-center">
-                    <Image src={site.src} alt={site.alt} fill className="object-contain" />
+                  <div className="relative h-full w-full">
+                    <Image src={site.src} alt={site.alt} fill sizes="140px" className="object-contain" />
                   </div>
                 </a>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -383,12 +400,12 @@ export default function ProfileCard() {
             <h2 className="font-black text-white text-xs uppercase tracking-widest mb-3">Media</h2>
             <div className="grid grid-cols-1 gap-4">
               <div className="flex items-center justify-between gap-3 rounded-2xl border border-slate-600 bg-slate-900/80 px-4 py-3 shadow-lg shadow-slate-950/20">
-                <h3 className="min-w-0 flex-1 text-sm font-black leading-tight text-white">Almahy   Legal Service Brochure</h3>
+                <h3 className="min-w-0 flex-1 text-sm font-black leading-tight text-white">Almahy Company Profile</h3>
                 <a
-                  href="/images/media/Almahy_Legal_Profile_V16.pdf"
-                  download="Almahy_Legal_Service_Brochure.pdf"
+                  href="/images/media/Almahy_Company_Profile_V03.1.pdf"
+                  download="Almahy_Company_Profile_V03.1.pdf"
                   className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-amber-400 px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-slate-950 transition hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-300/60"
-                  aria-label="Download Almahy   Legal Service Brochure"
+                  aria-label="Download Almahy Company Profile"
                 >
                   Download
                   <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

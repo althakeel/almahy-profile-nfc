@@ -7,6 +7,7 @@ export type ContactOption = {
   name: string;
   file: string | null;
   enabled: boolean;
+  photo?: string;
 };
 
 type ContactSelectionModalProps = {
@@ -88,20 +89,32 @@ export default function ContactSelectionModal({
                 type="button"
                 disabled={!available}
                 onClick={() => onSelect(contact)}
+                aria-label={available ? `Save ${contact.name} contact` : undefined}
                 className="flex w-full items-center gap-3 rounded-2xl border border-slate-600 bg-slate-700/40 px-4 py-3 text-left transition hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:ring-amber-300/60 disabled:cursor-not-allowed disabled:opacity-75 disabled:hover:bg-slate-700/40"
               >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-950/70 text-amber-300">
-                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="8" r="4" />
-                    <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
-                  </svg>
-                </span>
+                {contact.photo ? (
+                  <img
+                    src={contact.photo}
+                    alt=""
+                    className="h-10 w-10 shrink-0 rounded-xl object-cover object-top"
+                  />
+                ) : (
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-950/70 text-amber-300">
+                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="8" r="4" />
+                      <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
+                    </svg>
+                  </span>
+                )}
                 <span className="min-w-0 flex-1 text-sm font-bold">{contact.name}</span>
                 {available ? (
-                  <svg className="h-5 w-5 shrink-0 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-label="Download">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <path d="m7 10 5 5 5-5M12 15V3" />
-                  </svg>
+                  <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-amber-400 px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-slate-950">
+                    Save contact
+                    <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <path d="m7 10 5 5 5-5M12 15V3" />
+                    </svg>
+                  </span>
                 ) : (
                   <span className="shrink-0 rounded-full bg-slate-600/70 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-300">
                     Coming Soon
