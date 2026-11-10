@@ -2,12 +2,22 @@
 
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import ContactSelectionModal, { type ContactOption } from './ContactSelectionModal';
+
+const contacts: ContactOption[] = [
+  { id: 'almahy', name: 'Almahy', file: '/Almathy.vcf', enabled: true },
+  { id: 'contact-2', name: 'Contact Person 2', file: null, enabled: false },
+  { id: 'contact-3', name: 'Contact Person 3', file: null, enabled: false },
+  { id: 'contact-4', name: 'Contact Person 4', file: null, enabled: false },
+];
 
 export default function ProfileCard() {
   const [shareOpen, setShareOpen] = useState(false);
   const [locationOpen, setLocationOpen] = useState(false);
+  const [contactSelectionOpen, setContactSelectionOpen] = useState(false);
   const shareMenuRef = useRef<HTMLDivElement>(null);
   const locationMenuRef = useRef<HTMLDivElement>(null);
+  const contactButtonRef = useRef<HTMLButtonElement>(null);
   const contactShareText =
     'Hello, my name is Almahy Mohammed Abdelghany from AlMahy Legal Services. Email: info@almahy.com. Phone: +971 56 766 7466. Visit https://www.almahy.com';
   const profileUrl = 'https://www.almahy.com';
@@ -44,24 +54,34 @@ export default function ProfileCard() {
     window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer');
   };
 
-  const saveContact = () => {
+  const saveContact = (contact: ContactOption) => {
+    if (!contact.enabled || !contact.file) {
+      return;
+    }
+
     const isIOS =
       /iPad|iPhone|iPod/.test(navigator.userAgent) ||
       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     const link = document.createElement('a');
 
-    link.href = '/Almathy.vcf';
+    link.href = contact.file;
     link.rel = 'noopener noreferrer';
     if (isIOS) {
       link.target = '_blank';
     } else {
-      link.download = 'Almathy.vcf';
+      link.download = contact.file.split('/').pop() || 'Almathy.vcf';
     }
     document.body.appendChild(link);
     link.click();
     link.remove();
     setShareOpen(false);
     setLocationOpen(false);
+    setContactSelectionOpen(false);
+  };
+
+  const closeContactSelection = () => {
+    setContactSelectionOpen(false);
+    contactButtonRef.current?.focus();
   };
 
   useEffect(() => {
@@ -121,12 +141,15 @@ export default function ProfileCard() {
           <div className="absolute top-4 right-4 flex items-center gap-2">
             <div className="relative">
               <button
+                ref={contactButtonRef}
                 type="button"
                 onClick={() => {
-                  saveContact();
+                  setShareOpen(false);
+                  setLocationOpen(false);
+                  setContactSelectionOpen(true);
                 }}
                 className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950/80 text-white shadow-lg ring-1 ring-white/10 hover:bg-slate-900 transition"
-                aria-label="Save contact"
+                aria-label="Download contact"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 5v14" />
@@ -290,10 +313,12 @@ export default function ProfileCard() {
               {[
                 { href: "https://efateh.com/", src: "/images/1.png", alt: "Casa Online Logo" },
                 { href: "https://www.althakeel.com", src: "/images/2.png", alt: "MediateSuit Logo" },
-                { href: "https://www.mindcraft.com", src: "/images/3.png", alt: "HMICuits Logo" },
                 { href: "https://www.almahy.com", src: "/images/4.png", alt: "Alfhaidsol Logo" },
                 { href: "https://www.luxurywatchdeals.com", src: "/images/5.png", alt: "Luxury Writoth Device Logo" },
                 { href: "https://www.casabait.com", src: "/images/6.png", alt: "Almahy  Logo" },
+                { href: "https://armed.ae/", src: "/images/armed.svg", alt: "Armed Logo" },
+                { href: "https://www.store1920.com/", src: "/images/store1920.svg", alt: "Store1920 Logo" },
+                { href: "https://nexso.ae/", src: "/images/nexso.svg", alt: "Nexso Logo" },
               ].map((site) => (
                 <a
                   key={site.src}
@@ -394,6 +419,13 @@ export default function ProfileCard() {
           </div>
         </div>
       </div>
+      {contactSelectionOpen ? (
+        <ContactSelectionModal
+          contacts={contacts}
+          onSelect={saveContact}
+          onClose={closeContactSelection}
+        />
+      ) : null}
     </div>
   );
 }
