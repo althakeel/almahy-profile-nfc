@@ -17,7 +17,7 @@ const websites = [
 const contacts: ContactOption[] = [
   { id: 'almahy', name: 'Almahy', file: '/Almathy.vcf', enabled: true, photo: '/images/almahy/Almahy1.png' },
   { id: 'amin-kamel', name: 'Amin Kamel', file: '/contacts/Amin-Kamel.vcf', enabled: true, photo: '/images/contacts/amin-kamel.jpg' },
-  { id: 'dalia-khaled', name: 'Dalia Khaled', file: '/contacts/Dalia-Khaled.vcf', enabled: true },
+  { id: 'dalia-khaled', name: 'Dalia Khaled', file: '/contacts/Dalia-Khaled.vcf', enabled: true, photo: '/images/contacts/dalia-khaled.jpg' },
   { id: 'maged-nafea', name: 'Maged Nafea', file: '/contacts/Maged-Nafea.vcf', enabled: true, photo: '/images/contacts/maged-nafea.jpg' },
   { id: 'camile-cunanan', name: 'Camile Cunanan', file: '/contacts/Camile-Cunanan.vcf', enabled: true, photo: '/images/contacts/camile-cunanan.png' },
   { id: 'ahmed-osama', name: 'Ahmed Osama', file: '/contacts/Ahmed-Osama.vcf', enabled: true, photo: '/images/contacts/ahmed-osama.jpg' },
