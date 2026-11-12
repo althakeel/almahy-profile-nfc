@@ -90,21 +90,6 @@ export default function ProfileCard() {
       return;
     }
 
-    const isIOS =
-      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    const link = document.createElement('a');
-
-    link.href = contact.file;
-    link.rel = 'noopener noreferrer';
-    if (isIOS) {
-      link.target = '_blank';
-    } else {
-      link.download = contact.file.split('/').pop() || 'Almathy.vcf';
-    }
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
     setShareOpen(false);
     setLocationOpen(false);
     setContactSelectionOpen(false);

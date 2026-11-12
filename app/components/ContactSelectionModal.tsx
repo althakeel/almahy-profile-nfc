@@ -2,6 +2,13 @@
 
 import { useEffect, useRef } from 'react';
 
+function isMobilePhone() {
+  return (
+    /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+  );
+}
+
 export type ContactOption = {
   id: string;
   name: string;
@@ -83,16 +90,12 @@ export default function ContactSelectionModal({
         <div className="space-y-3">
           {contacts.map((contact) => {
             const available = contact.enabled && contact.file !== null;
-
-            return (
-              <button
-                key={contact.id}
-                type="button"
-                disabled={!available}
-                onClick={() => onSelect(contact)}
-                aria-label={available ? `Save ${contact.name} contact` : undefined}
-                className="flex w-full items-center gap-3 rounded-2xl border border-slate-600 bg-slate-700/40 px-4 py-3 text-left transition hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:ring-amber-300/60 disabled:cursor-not-allowed disabled:opacity-75 disabled:hover:bg-slate-700/40"
-              >
+            const filename = contact.file?.split('/').pop() || 'contact.vcf';
+            const mobile = available && isMobilePhone();
+            const rowClass =
+              'flex w-full items-center gap-3 rounded-2xl border border-slate-600 bg-slate-700/40 px-4 py-3 text-left transition hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:ring-amber-300/60 disabled:cursor-not-allowed disabled:opacity-75 disabled:hover:bg-slate-700/40';
+            const row = (
+              <>
                 {contact.photo ? (
                   <img
                     src={contact.photo}
@@ -121,7 +124,28 @@ export default function ContactSelectionModal({
                     Coming Soon
                   </span>
                 )}
-              </button>
+              </>
+            );
+
+            if (!available) {
+              return (
+                <button key={contact.id} type="button" disabled className={rowClass}>
+                  {row}
+                </button>
+              );
+            }
+
+            return (
+              <a
+                key={contact.id}
+                href={`/download/contact-${contact.id}.vcf`}
+                download={mobile ? undefined : filename}
+                onClick={() => onSelect(contact)}
+                aria-label={`Save ${contact.name} contact`}
+                className={rowClass}
+              >
+                {row}
+              </a>
             );
           })}
         </div>
