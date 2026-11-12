@@ -96,38 +96,24 @@ export default function ContactSelectionModal({
             const filename = contact.file?.split('/').pop() || 'contact.vcf';
             const mobile = available && isMobilePhone();
             const rowClass =
-              'flex w-full items-start gap-3 rounded-2xl border border-slate-600 bg-slate-700/40 px-4 py-3 text-left';
+              'flex w-full items-center gap-3 rounded-2xl border border-slate-600 bg-slate-700/40 px-4 py-3 text-left';
             const row = (
               <>
                 {contact.photo ? (
                   <img
                     src={contact.photo}
                     alt=""
-                    className="mt-0.5 h-10 w-10 shrink-0 rounded-xl object-cover object-top"
+                    className="h-10 w-10 shrink-0 rounded-xl object-cover object-top"
                   />
                 ) : (
-                  <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-950/70 text-amber-300">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-950/70 text-amber-300">
                     <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <circle cx="12" cy="8" r="4" />
                       <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
                     </svg>
                   </span>
                 )}
-                <span className="min-w-0 flex-1">
-                  <span className="block text-sm font-bold leading-tight">{contact.name}</span>
-                  {contact.phone ? <span className="mt-1 block text-xs text-slate-300">{contact.phone}</span> : null}
-                  {contact.email ? (
-                    <a href={`mailto:${contact.email}`} className="mt-1 block truncate text-xs text-blue-300 hover:underline">
-                      {contact.email}
-                    </a>
-                  ) : null}
-                  {contact.website ? (
-                    <a href={contact.website} target="_blank" rel="noopener noreferrer" className="mt-1 block truncate text-xs text-blue-300 hover:underline">
-                      {contact.website.replace(/^https?:\/\//, '')}
-                    </a>
-                  ) : null}
-                  {contact.address ? <span className="mt-1 block text-xs leading-snug text-slate-300">{contact.address}</span> : null}
-                </span>
+                <span className="min-w-0 flex-1 text-sm font-bold">{contact.name}</span>
               </>
             );
             const saveControl = available ? (
