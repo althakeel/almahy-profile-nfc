@@ -32,13 +32,19 @@ export default function OrientationLock() {
     const root = document.documentElement;
 
     const lockPortrait = () => {
-      const orientation = window.screen.orientation;
-      if (!orientation?.lock) {
+      const orientation = window.screen.orientation as
+        | (ScreenOrientation & {
+            lock?: (orientation: 'portrait' | 'portrait-primary') => Promise<void>;
+          })
+        | undefined;
+      const lock = orientation?.lock?.bind(orientation);
+
+      if (!lock) {
         return;
       }
 
-      orientation.lock('portrait').catch(() => {
-        orientation.lock('portrait-primary').catch(() => undefined);
+      lock('portrait').catch(() => {
+        lock('portrait-primary').catch(() => undefined);
       });
     };
 
