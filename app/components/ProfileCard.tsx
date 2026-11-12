@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import ContactSelectionModal, { type ContactOption } from './ContactSelectionModal';
+import EmailSelectionModal from './EmailSelectionModal';
+import PhoneSelectionModal from './PhoneSelectionModal';
 
 const websites = [
   { href: "https://www.almahy.com", src: "/images/4.png", alt: "Almahy Logo" },
@@ -14,20 +16,36 @@ const websites = [
   { href: "https://nexso.ae/", src: "/images/nexso.svg", alt: "Nexso Logo" },
 ];
 
+const media = [
+  {
+    id: "almahy",
+    title: "Almahy Company Profile",
+    file: "Almahy_Company_Profile_V03.1.pdf",
+  },
+  {
+    id: "althakeel",
+    title: "Althakeel Company Profile",
+    file: "Al_Thakeel_Company_Profile_3.1.pdf",
+  },
+];
+
 const contacts: ContactOption[] = [
-  { id: 'almahy', name: 'Almahy', file: '/Almathy.vcf', enabled: true, photo: '/images/almahy/Almahy1.png' },
-  { id: 'amin-kamel', name: 'Amin Kamel', file: '/contacts/Amin-Kamel.vcf', enabled: true, photo: '/images/contacts/amin-kamel.jpg' },
-  { id: 'dalia-khaled', name: 'Dalia Khaled', file: '/contacts/Dalia-Khaled.vcf', enabled: true, photo: '/images/contacts/dalia-khaled.jpg' },
-  { id: 'maged-nafea', name: 'Maged Nafea', file: '/contacts/Maged-Nafea.vcf', enabled: true, photo: '/images/contacts/maged-nafea.jpg' },
-  { id: 'camile-cunanan', name: 'Camile Cunanan', file: '/contacts/Camile-Cunanan.vcf', enabled: true, photo: '/images/contacts/camile-cunanan.png' },
-  { id: 'ahmed-osama', name: 'Ahmed Osama', file: '/contacts/Ahmed-Osama.vcf', enabled: true, photo: '/images/contacts/ahmed-osama.jpg' },
-  { id: 'nassef', name: 'Nassef', file: '/contacts/Nassef.vcf', enabled: true, photo: '/images/contacts/nassef.png' },
+  { id: 'almahy', name: 'Almahy', file: '/Almathy.vcf', enabled: true, photo: '/images/almahy/Almahy1.png', phone: '+971 56 766 7466' },
+  { id: 'amin-kamel', name: 'Amin Kamel', file: '/contacts/Amin-Kamel.vcf', enabled: true, photo: '/images/contacts/amin-kamel.jpg', phone: '+971 54 994 5255' },
+  { id: 'dalia-khaled', name: 'Dalia Khaled', file: '/contacts/Dalia-Khaled.vcf', enabled: true, photo: '/images/contacts/dalia-khaled.jpg', phone: '+971 50 152 3862' },
+  { id: 'maged-nafea', name: 'Maged Nafea', file: '/contacts/Maged-Nafea.vcf', enabled: true, photo: '/images/contacts/maged-nafea.jpg', phone: '+971 56 819 1755' },
+  { id: 'camile-cunanan', name: 'Camile Cunanan', file: '/contacts/Camile-Cunanan.vcf', enabled: true, photo: '/images/contacts/camile-cunanan.png', phone: '+971 52 804 6699' },
+  { id: 'ahmed-osama', name: 'Ahmed Osama', file: '/contacts/Ahmed-Osama.vcf', enabled: true, photo: '/images/contacts/ahmed-osama.jpg', phone: '+971 50 402 5462' },
+  { id: 'nassef', name: 'Nassef', file: '/contacts/Nassef.vcf', enabled: true, photo: '/images/contacts/nassef.png', phone: '+971 50 359 1638' },
+  { id: 'mariem-badawy', name: 'Mariem Badawy', file: '/contacts/Mariem-Badawy.vcf', enabled: true, phone: '+971 50 132 3558' },
 ];
 
 export default function ProfileCard() {
   const [shareOpen, setShareOpen] = useState(false);
   const [locationOpen, setLocationOpen] = useState(false);
   const [contactSelectionOpen, setContactSelectionOpen] = useState(false);
+  const [emailSelectionOpen, setEmailSelectionOpen] = useState(false);
+  const [phoneSelectionOpen, setPhoneSelectionOpen] = useState(false);
   const shareMenuRef = useRef<HTMLDivElement>(null);
   const locationMenuRef = useRef<HTMLDivElement>(null);
   const contactButtonRef = useRef<HTMLButtonElement>(null);
@@ -159,6 +177,8 @@ export default function ProfileCard() {
                 onClick={() => {
                   setShareOpen(false);
                   setLocationOpen(false);
+                  setEmailSelectionOpen(false);
+                  setPhoneSelectionOpen(false);
                   setContactSelectionOpen(true);
                 }}
                 className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950/80 text-white shadow-lg ring-1 ring-white/10 hover:bg-slate-900 transition"
@@ -262,24 +282,36 @@ export default function ProfileCard() {
             <h2 className="font-black text-white text-xs uppercase tracking-widest mb-3">Contact Info</h2>
 
             <div className="grid grid-cols-3 gap-3">
-              <a
-                href="tel:+971567667466"
-                aria-label="Call +971 56 766 7466"
+              <button
+                type="button"
+                onClick={() => {
+                  setShareOpen(false);
+                  setLocationOpen(false);
+                  setEmailSelectionOpen(false);
+                  setPhoneSelectionOpen(true);
+                }}
+                aria-label="Call"
                 className="group flex items-center justify-center w-full h-14 bg-slate-700 bg-opacity-40 rounded-xl border border-slate-600 hover:bg-opacity-60 transition"
               >
                 <svg className="w-6 h-6 text-amber-300 transition group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-              </a>
-              <a
-                href="mailto:info@almahy.com"
-                aria-label="Email info@almahy.com"
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShareOpen(false);
+                  setLocationOpen(false);
+                  setPhoneSelectionOpen(false);
+                  setEmailSelectionOpen(true);
+                }}
+                aria-label="Email"
                 className="group flex items-center justify-center w-full h-14 bg-slate-700 bg-opacity-40 rounded-xl border border-slate-600 hover:bg-opacity-60 transition"
               >
                 <svg className="w-6 h-6 text-blue-300 transition group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-              </a>
+              </button>
               <div ref={locationMenuRef} className="relative">
                 <button
                   type="button"
@@ -399,22 +431,24 @@ export default function ProfileCard() {
           <div className="mt-8">
             <h2 className="font-black text-white text-xs uppercase tracking-widest mb-3">Media</h2>
             <div className="grid grid-cols-1 gap-4">
-              <div className="flex items-center justify-between gap-3 rounded-2xl border border-slate-600 bg-slate-900/80 px-4 py-3 shadow-lg shadow-slate-950/20">
-                <h3 className="min-w-0 flex-1 text-sm font-black leading-tight text-white">Almahy Company Profile</h3>
-                <a
-                  href="/images/media/Almahy_Company_Profile_V03.1.pdf"
-                  download="Almahy_Company_Profile_V03.1.pdf"
-                  className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-amber-400 px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-slate-950 transition hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-300/60"
-                  aria-label="Download Almahy Company Profile"
-                >
-                  Download
-                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 3v12" />
-                    <path d="m7 10 5 5 5-5" />
-                    <path d="M5 21h14" />
-                  </svg>
-                </a>
-              </div>
+              {media.map((item) => (
+                <div key={item.file} className="flex items-center justify-between gap-3 rounded-2xl border border-slate-600 bg-slate-900/80 px-4 py-3 shadow-lg shadow-slate-950/20">
+                  <h3 className="min-w-0 flex-1 text-sm font-black leading-tight text-white">{item.title}</h3>
+                  <a
+                    href={`/download/${item.id}`}
+                    download={item.file}
+                    className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-amber-400 px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-slate-950 transition hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-300/60"
+                    aria-label={`Download ${item.title}`}
+                  >
+                    Download
+                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 3v12" />
+                      <path d="m7 10 5 5 5-5" />
+                      <path d="M5 21h14" />
+                    </svg>
+                  </a>
+                </div>
+              ))}
             </div>
           </div>
           {/* Video Section */}
@@ -441,6 +475,15 @@ export default function ProfileCard() {
           contacts={contacts}
           onSelect={saveContact}
           onClose={closeContactSelection}
+        />
+      ) : null}
+      {emailSelectionOpen ? (
+        <EmailSelectionModal onClose={() => setEmailSelectionOpen(false)} />
+      ) : null}
+      {phoneSelectionOpen ? (
+        <PhoneSelectionModal
+          contacts={contacts.filter((contact) => contact.id === 'almahy' || contact.id === 'mariem-badawy')}
+          onClose={() => setPhoneSelectionOpen(false)}
         />
       ) : null}
     </div>

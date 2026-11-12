@@ -8,6 +8,7 @@ export type ContactOption = {
   file: string | null;
   enabled: boolean;
   photo?: string;
+  phone?: string;
 };
 
 type ContactSelectionModalProps = {
