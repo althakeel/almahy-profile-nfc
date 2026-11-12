@@ -16,6 +16,9 @@ export type ContactOption = {
   enabled: boolean;
   photo?: string;
   phone?: string;
+  email?: string;
+  website?: string;
+  address?: string;
 };
 
 type ContactSelectionModalProps = {
@@ -63,7 +66,7 @@ export default function ContactSelectionModal({
         aria-modal="true"
         aria-labelledby="contact-selection-title"
         aria-describedby="contact-selection-description"
-        className="contact-selection-panel w-full max-w-md rounded-3xl border border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 p-5 text-white shadow-2xl"
+        className="contact-selection-panel flex max-h-[85vh] w-full max-w-md flex-col rounded-3xl border border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 p-5 text-white shadow-2xl"
       >
         <div className="mb-5 flex items-start justify-between gap-4">
           <div>
@@ -87,65 +90,71 @@ export default function ContactSelectionModal({
           </button>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-3 overflow-y-auto pr-1">
           {contacts.map((contact) => {
             const available = contact.enabled && contact.file !== null;
             const filename = contact.file?.split('/').pop() || 'contact.vcf';
             const mobile = available && isMobilePhone();
             const rowClass =
-              'flex w-full items-center gap-3 rounded-2xl border border-slate-600 bg-slate-700/40 px-4 py-3 text-left transition hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:ring-amber-300/60 disabled:cursor-not-allowed disabled:opacity-75 disabled:hover:bg-slate-700/40';
+              'flex w-full items-start gap-3 rounded-2xl border border-slate-600 bg-slate-700/40 px-4 py-3 text-left';
             const row = (
               <>
                 {contact.photo ? (
                   <img
                     src={contact.photo}
                     alt=""
-                    className="h-10 w-10 shrink-0 rounded-xl object-cover object-top"
+                    className="mt-0.5 h-10 w-10 shrink-0 rounded-xl object-cover object-top"
                   />
                 ) : (
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-950/70 text-amber-300">
+                  <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-950/70 text-amber-300">
                     <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <circle cx="12" cy="8" r="4" />
                       <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
                     </svg>
                   </span>
                 )}
-                <span className="min-w-0 flex-1 text-sm font-bold">{contact.name}</span>
-                {available ? (
-                  <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-amber-400 px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-slate-950">
-                    Save contact
-                    <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <path d="m7 10 5 5 5-5M12 15V3" />
-                    </svg>
-                  </span>
-                ) : (
-                  <span className="shrink-0 rounded-full bg-slate-600/70 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-300">
-                    Coming Soon
-                  </span>
-                )}
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-bold leading-tight">{contact.name}</span>
+                  {contact.phone ? <span className="mt-1 block text-xs text-slate-300">{contact.phone}</span> : null}
+                  {contact.email ? (
+                    <a href={`mailto:${contact.email}`} className="mt-1 block truncate text-xs text-blue-300 hover:underline">
+                      {contact.email}
+                    </a>
+                  ) : null}
+                  {contact.website ? (
+                    <a href={contact.website} target="_blank" rel="noopener noreferrer" className="mt-1 block truncate text-xs text-blue-300 hover:underline">
+                      {contact.website.replace(/^https?:\/\//, '')}
+                    </a>
+                  ) : null}
+                  {contact.address ? <span className="mt-1 block text-xs leading-snug text-slate-300">{contact.address}</span> : null}
+                </span>
               </>
             );
-
-            if (!available) {
-              return (
-                <button key={contact.id} type="button" disabled className={rowClass}>
-                  {row}
-                </button>
-              );
-            }
-
-            return (
+            const saveControl = available ? (
               <a
-                key={contact.id}
                 href={`/download/contact-${contact.id}.vcf`}
                 download={mobile ? undefined : filename}
                 onClick={() => onSelect(contact)}
                 aria-label={`Save ${contact.name} contact`}
-                className={rowClass}
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-amber-400 px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-slate-950 transition hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-300/60"
               >
-                {row}
+                Save contact
+                <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <path d="m7 10 5 5 5-5M12 15V3" />
+                </svg>
               </a>
+            ) : (
+              <span className="shrink-0 rounded-full bg-slate-600/70 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-300">
+                Coming Soon
+              </span>
+            );
+
+            return (
+              <div key={contact.id} className={rowClass}>
+                {row}
+                {saveControl}
+              </div>
             );
           })}
         </div>

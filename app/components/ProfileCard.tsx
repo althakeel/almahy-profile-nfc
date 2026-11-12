@@ -29,15 +29,22 @@ const media = [
   },
 ];
 
+const companyContact = {
+  email: 'info@almahy.com',
+  website: 'https://www.almahy.com',
+  address:
+    'Al Saqr Business Tower - 2nd Floor - Sheikh Zayed Rd - Trade Center Second - DIFC - Dubai',
+};
+
 const contacts: ContactOption[] = [
-  { id: 'almahy', name: 'Almahy', file: '/Almathy.vcf', enabled: true, photo: '/images/almahy/Almahy1.png', phone: '+971 56 766 7466' },
-  { id: 'amin-kamel', name: 'Amin Kamel', file: '/contacts/Amin-Kamel.vcf', enabled: true, photo: '/images/contacts/amin-kamel.jpg', phone: '+971 54 994 5255' },
-  { id: 'dalia-khaled', name: 'Dalia Khaled', file: '/contacts/Dalia-Khaled.vcf', enabled: true, photo: '/images/contacts/dalia-khaled.jpg', phone: '+971 50 152 3862' },
-  { id: 'maged-nafea', name: 'Maged Nafea', file: '/contacts/Maged-Nafea.vcf', enabled: true, photo: '/images/contacts/maged-nafea.jpg', phone: '+971 56 819 1755' },
-  { id: 'camile-cunanan', name: 'Camile Cunanan', file: '/contacts/Camile-Cunanan.vcf', enabled: true, photo: '/images/contacts/camile-cunanan.png', phone: '+971 52 804 6699' },
-  { id: 'ahmed-osama', name: 'Ahmed Osama', file: '/contacts/Ahmed-Osama.vcf', enabled: true, photo: '/images/contacts/ahmed-osama.jpg', phone: '+971 50 402 5462' },
-  { id: 'nassef', name: 'Nassef', file: '/contacts/Nassef.vcf', enabled: true, photo: '/images/contacts/nassef.png', phone: '+971 50 359 1638' },
-  { id: 'mariem-badawy', name: 'Mariem Badawy', file: '/contacts/Mariem-Badawy.vcf', enabled: true, phone: '+971 50 132 3558' },
+  { id: 'almahy', name: 'Almahy Mohammed Abdelghany', file: '/Almathy.vcf', enabled: true, photo: '/images/almahy/Almahy1.png', phone: '+971 56 766 7466', ...companyContact },
+  { id: 'amin-kamel', name: 'Amin Kamel', file: '/contacts/Amin-Kamel.vcf', enabled: true, photo: '/images/contacts/amin-kamel.jpg', phone: '+971 54 994 5255', ...companyContact },
+  { id: 'dalia-khaled', name: 'Dalia Khaled', file: '/contacts/Dalia-Khaled.vcf', enabled: true, photo: '/images/contacts/dalia-khaled.jpg', phone: '+971 50 152 3862', ...companyContact },
+  { id: 'maged-nafea', name: 'Maged Nafea', file: '/contacts/Maged-Nafea.vcf', enabled: true, photo: '/images/contacts/maged-nafea.jpg', phone: '+971 56 819 1755', ...companyContact },
+  { id: 'camile-cunanan', name: 'Camile Cunanan', file: '/contacts/Camile-Cunanan.vcf', enabled: true, photo: '/images/contacts/camile-cunanan.png', phone: '+971 52 804 6699', ...companyContact },
+  { id: 'ahmed-osama', name: 'Ahmed Osama', file: '/contacts/Ahmed-Osama.vcf', enabled: true, photo: '/images/contacts/ahmed-osama.jpg', phone: '+971 50 402 5462', ...companyContact },
+  { id: 'nassef', name: 'Nassef', file: '/contacts/Nassef.vcf', enabled: true, photo: '/images/contacts/nassef.png', phone: '+971 50 359 1638', ...companyContact },
+  { id: 'mariem-badawy', name: 'Mariem Badawy', file: '/contacts/Mariem-Badawy.vcf', enabled: true, phone: '+971 50 132 3558', ...companyContact },
 ];
 
 export default function ProfileCard() {
